@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+<head>
+<base target="_top">
+<title>HVRHS Mapping Project</title>
+<style>
+  body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; }
+  h1 { margin-bottom: 20px; }
+
+  #map-container { position: relative; width: 1000px; height: 567px; }
+  #map-image { width: 100%; height: 100%; display: block; }
+  .region {
+    position: absolute;
+    cursor: pointer;
+    border: 1px solid transparent;
+    background-color: lightgray;
+    opacity: 0.5;
+    transition: background-color 0.2s, opacity 0.2s; /* Added transition for smoother coloring */
+  }
+  .value-0 { background-color: lightgray; }
+  .value-1 { background-color: dodgerblue; } /* Use a slightly nicer blue */
+  .value-2 { background-color: tomato; } /* Use a slightly nicer red/pink */
+
+  /* --- Region Definitions (Your Original CSS) --- */
+  #regionMH { top: 81px; left: 95px; width: 159px; height: 64px; }
+  #regionAG { top: 81px; left: 280px; width: 49px; height: 64px; }
+  #regionBookStore { top: 80px; left: 707px; width: 21px; height: 16px; }
+  #regionBackBalcony { top: 81px; left: 729px; width: 20px; height: 15px; }
+  #regionAthTrain { top: 80px; left: 750px; width: 20px; height: 16px; }
+  #regionCafe { top: 97px; left: 707px; width: 63px; height: 60px; }
+  #regionKitch { top: 122px; left: 771px; width: 81px; height: 51px; }
+  #regionCust { top: 122px; left: 854px; width: 19px; height: 51px; }
+  #regionKitchOff { top: 109px; left: 771px; width: 102px; height: 12px; }
+  #regionGirlsLR { top: 95px; left: 876px; width: 112px; height: 15px; }
+  #regionBoysLR { top: 124px; left: 895px; width: 77px; height: 22px; }
+  #regionGym { top: 175px; left: 895px; width: 89px; height: 87px; }
+  #regionFitness { top: 187px; left: 812px; width: 40px; height: 32px; }
+  #regionRSSC { top: 263px; left: 791px; width: 82px; height: 45px; }
+  #regionCounseling { top: 235px; left: 729px; width: 40px; height: 63px; }
+  #regionCareer { top: 299px; left: 729px; width: 40px; height: 25px; }
+  #regionAD { top: 299px; left: 686px; width: 21px; height: 25px; }
+  #regionPrincipal { top: 299px; left: 663px; width: 21px; height: 25px; }
+  #regionMainOff { top: 299px; left: 613px; width: 20px; height: 25px; }
+  #regionAud { top: 187px; left: 634px; width: 28px; height: 87px; }
+  #regionPupil { top: 247px; left: 663px; width: 44px; height: 27px; }
+  #regionNurse { top: 187px; left: 663px; width: 44px; height: 19px; }
+  #regionAPO { top: 247px; left: 611px; width: 22px; height: 27px; }
+  #regionFacLounge { top: 187px; left: 589px; width: 44px; height: 19px; }
+  #regionCourtL { top: 207px; left: 589px; width: 44px; height: 39px; }
+  #regionCourtR { top: 207px; left: 663px; width: 44px; height: 39px; }
+  #regionSenCourt { top: 227px; left: 415px; width: 105px; height: 33px; }
+  #regionGreenHo { top: 346px; left: 12px; width: 56px; height: 47px; }
+  #regionFrOval { top: 385px; left: 541px; width: 200px; height: 40px; }
+  #regionMainEnt { top: 357px; left: 611px; width: 77px; height: 23px; }
+  #regionLibrary { top: 341px; left: 359px; width: 135px; height: 27px; }
+  #regionCopyRoom { top: 187px; left: 537px; width: 27px; height: 20px; }
+  #regionAgEdOff { top: 326px; left: 124px; width: 26px; height: 43px; }
+  #regionSciOff { top: 315px; left: 280px; width: 23px; height: 29px; }
+  #regionITOff { top: 309px; left: 305px; width: 24px; height: 15px; }
+  #regionLibOff { top: 346px; left: 330px; width: 24px; height: 23px; }
+  #regionMathOff { top: 276px; left: 357px; width: 34px; height: 22px; }
+  #regionLangOff { top: 463px; left: 650px; width: 12px; height: 41px; }
+  #regionWorkRoomTop { top: 335px; left: 70px; width: 25px; height: 33px; }
+  #regionWorkRoomBot { top: 370px; left: 70px; width: 25px; height: 33px; }
+  #regionDownLocker { top: 159px; left: 707px; width: 63px; height: 14px; }
+  #regionEngOff { top: 463px; left: 604px; width: 8px; height: 41px; }
+  #regionBalcony { top: 463px; left: 589px; width: 14px; height: 41px; }
+  #regionLavGym { top: 187px; left: 854px; width: 19px; height: 32px; }
+  #regionLav2L { top: 505px; left: 517px; width: 19px; height: 14px; }
+  #regionLav2R { top: 505px; left: 643px; width: 19px; height: 14px; }
+  #regionLavTE { top: 187px; left: 424px; width: 20px; height: 20px; }
+  #regionLavMath { top: 309px; left: 245px; width: 10px; height: 15px; }
+  #regionLockers { top: 159px; left: 895px; width: 59px; height: 14px; }
+  #region103 { top: 187px; left: 750px; width: 40px; height: 32px; }
+  #region104 { top: 146px; left: 614px; width: 18px; height: 27px; }
+  #region105 { top: 146px; left: 634px; width: 28px; height: 27px; }
+  #region106 { top: 146px; left: 663px; width: 21px; height: 27px; }
+  #region107 { top: 134px; left: 589px; width: 23px; height: 39px; }
+  #region108 { top: 146px; left: 566px; width: 22px; height: 27px; }
+  #region109 { left: 537px; width: 28px; top: 146px; height: 27px; }
+  #region110 { left: 495px; width: 40px; top: 134px; height: 39px; }
+  #region111 { left: 471px; width: 23px; top: 146px; height: 27px; }
+  #region112 { left: 445px; width: 25px; top: 146px; height: 27px; }
+  #region113 { left: 401px; width: 43px; top: 146px; height: 27px; }
+  #region114 { left: 355px; width: 46px; top: 158px; height: 36px; }
+  #region114A { left: 355px; width: 18px; top: 195px; height: 12px; }
+  #region115 { left: 355px; width: 46px; top: 207px; height: 27px; }
+  #region116A { left: 517px; width: 19px; top: 187px; height: 20px; }
+  #region116B { left: 496px; width: 21px; top: 187px; height: 20px; }
+  #region116C { left: 471px; width: 24px; top: 187px; height: 20px; }
+  #region116D { left: 445px; width: 25px; top: 187px; height: 20px; }
+  #region117 { left: 537px; width: 27px; top: 208px; height: 26px; }
+  #region118 { left: 537px; width: 27px; top: 235px; height: 27px; }
+  #region120 { left: 330px; width: 25px; top: 276px; height: 22px; }
+  #region121 { left: 304px; width: 25px; top: 276px; height: 22px; }
+  #region122 { left: 280px; width: 24px; top: 276px; height: 22px; }
+  #region123 { left: 256px; width: 23px; top: 276px; height: 22px; }
+  #region124 { left: 228px; width: 26px; top: 276px; height: 22px; }
+  #region125 { left: 189px; width: 38px; top: 276px; height: 22px; }
+  #region126 { left: 189px; width: 26px; top: 309px; height: 16px; }
+  #region127 { left: 216px; width: 28px; top: 309px; height: 16px; }
+  #region128 { left: 228px; width: 26px; top: 326px; height: 31px; }
+  #region129 { left: 228px; width: 26px; top: 370px; height: 35px; }
+  #region130 { left: 280px; width: 24px; top: 370px; height: 35px; }
+  #region131 { left: 280px; width: 49px; top: 345px; height: 24px; }
+  #region133 { left: 398px; width: 40px; top: 304px; height: 29px; }
+  #region134 { left: 517px; width: 48px; top: 299px; height: 25px; }
+  #region135 { left: 589px; width: 22px; top: 247px; height: 27px; }
+  #region136 { left: 589px; width: 24px; top: 299px; height: 25px; }
+  #region182 { left: 331px; width: 42px; top: 309px; height: 15px; }
+  #region184 { left: 305px; width: 24px; top: 326px; height: 19px; }
+  #region185 { left: 408px; width: 39px; top: 378px; height: 24px; }
+  #region188 { left: 443px; width: 27px; top: 299px; height: 25px; }
+  #region189 { left: 472px; width: 44px; top: 299px; height: 25px; }
+  #region202 { left: 614px; width: 36px; top: 463px; height: 41px; }
+  #region204 { left: 553px; width: 35px; top: 463px; height: 41px; }
+  #region205 { left: 517px; width: 34px; top: 463px; height: 41px; }
+  #region207 { left: 538px; width: 49px; top: 520px; height: 31px; }
+  #region208 { left: 590px; width: 22px; top: 520px; height: 31px; }
+  #region209 { left: 614px; width: 35px; top: 520px; height: 31px; }
+  #region349 { left: 166px; width: 22px; top: 249px; height: 14px; }
+  #region350 { left: 166px; width: 22px; top: 264px; height: 14px; }
+  #region351 { left: 166px; width: 22px; top: 282px; height: 17px; }
+  #region352 { left: 166px; width: 22px; top: 318px; height: 16px; }
+  #region353 { left: 166px; width: 22px; top: 335px; height: 35px; }
+  #region354 { left: 166px; width: 22px; top: 370px; height: 35px; }
+  #region356 { left: 125px; width: 24px; top: 382px; height: 23px; }
+  #region358 { left: 124px; width: 26px; top: 309px; height: 16px; }
+  #region359 { left: 124px; width: 26px; top: 264px; height: 44px; }
+  #region360 { left: 124px; width: 26px; top: 249px; height: 14px; }
+  #region361 { left: 97px; width: 26px; top: 335px; height: 33px; }
+  #region362 { left: 97px; width: 26px; top: 370px; height: 33px; }
+  /* --- End Region Definitions --- */
+
+  #instructions-box {
+    background-color: #f0f0f0;
+    padding: 15px;            
+    margin-bottom: 20px;      
+    border-radius: 5px;        
+    width: 950px;              
+    text-align: left;          
+  }
+
+  #instructions-box ul {
+    list-style-type: disc;    
+    margin: 0;                
+    padding-left: 20px;        
+  }
+
+  #instructions-box li {
+    margin-bottom: 5px;        
+    line-height: 1.4;          
+    text-align: left;
+  }
+
+  #user-input-section {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    width: 950px;
+  }
+
+  #user-input-section label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  #user-category-select,
+  .text-input-field {
+    width: 925px;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: sans-serif;
+  }
+ 
+  #submit-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, opacity 0.3s;
+    display: flex; /* For alignment of text and spinner */
+    align-items: center;
+    justify-content: center;
+  }
+ 
+  #submit-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  #submit-button:not(:disabled):hover {
+    background-color: #45a049;
+  }
+
+  #status-message { margin-top: 10px; color: green; font-weight: bold; }
+
+  /* Simple loading spinner CSS (adapted from previous version) */
+  #loading-spinner {
+      border: 4px solid rgba(255, 255, 255, 0.4);
+      border-left-color: white;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      animation: spin 1s linear infinite;
+      margin-left: 8px;
+      display: none; /* Hidden by default */
+  }
+  @keyframes spin {
+      to { transform: rotate(360deg); }
+  }
+</style>
+</head>
+<body>
+
+  <h1>HVRHS Mapping Project</h1>
+  <div id="instructions-box">
+  <ul>
+    <li>Click on each room or area of this map to color the areas you feel supported, safe, welcome, seen or positive <span style="color: dodgerblue;">BLUE</span></li>
+    <li>Click on each room or area of this map to color the areas you feel unsupported, unsafe, unwelcome, unseen or negative <span style="color: tomato;">RED</span></li>
+    <li>Areas for which you do not feel strongly either way should be left GRAY</li>
+  </ul>
+</div>
+<br>
+  <div id="map-container">
+    <img id="map-image" src="https://i.imgur.com/hAH3CGy.png" onerror="this.onerror=null; this.src='https://placehold.co/1000x567/cccccc/333333?text=HVRHS+Map+Image+Placeholder';">
+    <!-- All 95 Region DIVs below (as provided by user) -->
+    <div id="regionMH" class="region value-0" data-value="0"></div>
+    <div id="regionAG" class="region value-0" data-value="0"></div>
+    <div id="regionBookStore" class="region value-0" data-value="0"></div>
+    <div id="regionBackBalcony" class="region value-0" data-value="0"></div>
+    <div id="regionAthTrain" class="region value-0" data-value="0"></div>
+    <div id="regionCafe" class="region value-0" data-value="0"></div>
+    <div id="regionKitch" class="region value-0" data-value="0"></div>
+    <div id="regionCust" class="region value-0" data-value="0"></div>
+    <div id="regionKitchOff" class="region value-0" data-value="0"></div>
+    <div id="regionGirlsLR" class="region value-0" data-value="0"></div>
+    <div id="regionBoysLR" class="region value-0" data-value="0"></div>
+    <div id="regionGym" class="region value-0" data-value="0"></div>
+    <div id="regionFitness" class="region value-0" data-value="0"></div>
+    <div id="regionRSSC" class="region value-0" data-value="0"></div>
+    <div id="regionCounseling" class="region value-0" data-value="0"></div>
+    <div id="regionCareer" class="region value-0" data-value="0"></div>
+    <div id="regionAD" class="region value-0" data-value="0"></div>
+    <div id="regionPrincipal" class="region value-0" data-value="0"></div>
+    <div id="regionMainOff" class="region value-0" data-value="0"></div>
+    <div id="regionAud" class="region value-0" data-value="0"></div>
+    <div id="regionPupil" class="region value-0" data-value="0"></div>
+    <div id="regionNurse" class="region value-0" data-value="0"></div>
+    <div id="regionAPO" class="region value-0" data-value="0"></div>
+    <div id="regionFacLounge" class="region value-0" data-value="0"></div>
+    <div id="regionCourtL" class="region value-0" data-value="0"></div>
+    <div id="regionCourtR" class="region value-0" data-value="0"></div>
+    <div id="regionSenCourt" class="region value-0" data-value="0"></div>
+    <div id="regionGreenHo" class="region value-0" data-value="0"></div>
+    <div id="regionFrOval" class="region value-0" data-value="0"></div>
+    <div id="regionMainEnt" class="region value-0" data-value="0"></div>
+    <div id="regionLibrary" class="region value-0" data-value="0"></div>
+    <div id="regionCopyRoom" class="region value-0" data-value="0"></div>
+    <div id="regionAgEdOff" class="region value-0" data-value="0"></div>
+    <div id="regionSciOff" class="region value-0" data-value="0"></div>
+    <div id="regionITOff" class="region value-0" data-value="0"></div>
+    <div id="regionLibOff" class="region value-0" data-value="0"></div>
+    <div id="regionMathOff" class="region value-0" data-value="0"></div>
+    <div id="regionLangOff" class="region value-0" data-value="0"></div>
+    <div id="regionWorkRoomTop" class="region value-0" data-value="0"></div>
+    <div id="regionWorkRoomBot" class="region value-0" data-value="0"></div>
+    <div id="regionDownLocker" class="region value-0" data-value="0"></div>
+    <div id="regionEngOff" class="region value-0" data-value="0"></div>
+    <div id="regionBalcony" class="region value-0" data-value="0"></div>
+    <div id="regionLavGym" class="region value-0" data-value="0"></div>
+    <div id="regionLav2L" class="region value-0" data-value="0"></div>
+    <div id="regionLav2R" class="region value-0" data-value="0"></div>
+    <div id="regionLavTE" class="region value-0" data-value="0"></div>
+    <div id="regionLavMath" class="region value-0" data-value="0"></div>
+    <div id="regionLockers" class="region value-0" data-value="0"></div>
+    <div id="region103" class="region value-0" data-value="0"></div>
+    <div id="region104" class="region value-0" data-value="0"></div>
+    <div id="region105" class="region value-0" data-value="0"></div>
+    <div id="region106" class="region value-0" data-value="0"></div>
+    <div id="region107" class="region value-0" data-value="0"></div>
+    <div id="region108" class="region value-0" data-value="0"></div>
+    <div id="region109" class="region value-0" data-value="0"></div>
+    <div id="region110" class="region value-0" data-value="0"></div>
+    <div id="region111" class="region value-0" data-value="0"></div>
+    <div id="region112" class="region value-0" data-value="0"></div>
+    <div id="region113" class="region value-0" data-value="0"></div>
+    <div id="region114" class="region value-0" data-value="0"></div>
+    <div id="region114A" class="region value-0" data-value="0"></div>
+    <div id="region115" class="region value-0" data-value="0"></div>
+    <div id="region116A" class="region value-0" data-value="0"></div>
+    <div id="region116B" class="region value-0" data-value="0"></div>
+    <div id="region116C" class="region value-0" data-value="0"></div>
+    <div id="region116D" class="region value-0" data-value="0"></div>
+    <div id="region117" class="region value-0" data-value="0"></div>
+    <div id="region118" class="region value-0" data-value="0"></div>
+    <div id="region120" class="region value-0" data-value="0"></div>
+    <div id="region121" class="region value-0" data-value="0"></div>
+    <div id="region122" class="region value-0" data-value="0"></div>
+    <div id="region123" class="region value-0" data-value="0"></div>
+    <div id="region124" class="region value-0" data-value="0"></div>
+    <div id="region125" class="region value-0" data-value="0"></div>
+    <div id="region126" class="region value-0" data-value="0"></div>
+    <div id="region127" class="region value-0" data-value="0"></div>
+    <div id="region128" class="region value-0" data-value="0"></div>
+    <div id="region129" class="region value-0" data-value="0"></div>
+    <div id="region130" class="region value-0" data-value="0"></div>
+    <div id="region131" class="region value-0" data-value="0"></div>
+    <div id="region133" class="region value-0" data-value="0"></div>
+    <div id="region134" class="region value-0" data-value="0"></div>
+    <div id="region135" class="region value-0" data-value="0"></div>
+    <div id="region136" class="region value-0" data-value="0"></div>
+    <div id="region182" class="region value-0" data-value="0"></div>
+    <div id="region184" class="region value-0" data-value="0"></div>
+    <div id="region185" class="region value-0" data-value="0"></div>
+    <div id="region188" class="region value-0" data-value="0"></div>
+    <div id="region189" class="region value-0" data-value="0"></div>
+    <div id="region202" class="region value-0" data-value="0"></div>
+    <div id="region204" class="region value-0" data-value="0"></div>
+    <div id="region205" class="region value-0" data-value="0"></div>
+    <div id="region207" class="region value-0" data-value="0"></div>
+    <div id="region208" class="region value-0" data-value="0"></div>
+    <div id="region209" class="region value-0" data-value="0"></div>
+    <div id="region349" class="region value-0" data-value="0"></div>
+    <div id="region350" class="region value-0" data-value="0"></div>
+    <div id="region351" class="region value-0" data-value="0"></div>
+    <div id="region352" class="region value-0" data-value="0"></div>
+    <div id="region353" class="region value-0" data-value="0"></div>
+    <div id="region354" class="region value-0" data-value="0"></div>
+    <div id="region356" class="region value-0" data-value="0"></div>
+    <div id="region358" class="region value-0" data-value="0"></div>
+    <div id="region359" class="region value-0" data-value="0"></div>
+    <div id="region360" class="region value-0" data-value="0"></div>
+    <div id="region361" class="region value-0" data-value="0"></div>
+    <div id="region362" class="region value-0" data-value="0"></div>
+   
+
+  </div>
+
+  <div id="user-input-section">
+
+    <label for="user-category-select">1. Select your class year/role:</label>
+    <select id="user-category-select">
+      <option value="">-- Please select --</option>
+      <option value="Faculty">Faculty</option>
+      <option value="9th Grade">9th Grade</option>
+      <option value="10th Grade">10th Grade</option>
+      <option value="11th Grade">11th Grade</option>
+      <option value="12th Grade">12th Grade</option>
+    </select>
+   
+    <label for="input-assets">2. Which areas of HVRHS do you consider ASSETS? (Assets can be places of particular personal importance, spaces that you are proud of, areas where you spend the most time, etc.)</label>
+    <textarea id="input-assets" class="text-input-field" rows="2" placeholder="List assets here..."></textarea>
+   
+    <label for="input-wished-assets">3. List any ASSET you wished existed at HVRHS? (Examples include a new physical space, a resource HVRHS provided, a faculty/staff position, etc.)</label>
+    <textarea id="input-wished-assets" class="text-input-field" rows="2" placeholder="List desired assets here..."></textarea>
+   
+    <label for="input-best-word">4. Write ONE WORD that you think BEST describes HVRHS?</label>
+    <input type="text" id="input-best-word" class="text-input-field" placeholder="One word only...">
+   
+</div>
+  <button id="submit-button" disabled>
+    <span>Submit</span>
+    <div id="loading-spinner"></div>
+  </button>
+
+  <div id="status-message"></div>
+
+<script>
+  // --- CONFIGURATION ---
+  // *** Your Cloud Function URL ***
+  const CLOUD_FUNCTION_URL = 'https://savedata-295461988586.us-central1.run.app';
+ 
+  // All 95 region IDs defined in your original code
+  const REGION_IDS = [
+    'regionMH', 'regionAG', 'regionBookStore', 'regionBackBalcony', 'regionAthTrain', 'regionCafe', 'regionKitch', 'regionCust', 'regionKitchOff', 'regionGirlsLR', 'regionBoysLR', 'regionGym', 'regionFitness', 'regionRSSC', 'regionCounseling', 'regionCareer', 'regionAD', 'regionPrincipal', 'regionMainOff', 'regionAud', 'regionPupil', 'regionNurse', 'regionAPO', 'regionFacLounge', 'regionCourtL', 'regionCourtR', 'regionSenCourt', 'regionGreenHo', 'regionFrOval', 'regionMainEnt', 'regionLibrary', 'regionCopyRoom', 'regionAgEdOff', 'regionSciOff', 'regionITOff', 'regionLibOff', 'regionMathOff', 'regionLangOff', 'regionWorkRoomTop', 'regionWorkRoomBot', 'regionDownLocker', 'regionEngOff', 'regionBalcony', 'regionLavGym', 'regionLav2L', 'regionLav2R', 'regionLavTE', 'regionLavMath', 'regionLockers', 'region103', 'region104', 'region105', 'region106', 'region107', 'region108', 'region109', 'region110', 'region111', 'region112', 'region113', 'region114', 'region114A', 'region115', 'region116A', 'region116B', 'region116C', 'region116D', 'region117', 'region118', 'region120', 'region121', 'region122', 'region123', 'region124', 'region125', 'region126', 'region127', 'region128', 'region129', 'region130', 'region131', 'region133', 'region134', 'region135', 'region136', 'region182', 'region184', 'region185', 'region188', 'region189', 'region202', 'region204', 'region205', 'region207', 'region208', 'region209', 'region349', 'region350', 'region351', 'region352', 'region353', 'region354', 'region356', 'region358', 'region359', 'region360', 'region361', 'region362'
+  ];
+  // --- END CONFIGURATION ---
+
+  // Map to store current values for each region (Keep your original map definition)
+  const regionValues = REGION_IDS.reduce((acc, id) => {
+      acc[id] = 0;
+      return acc;
+  }, {});
+
+  const regions = document.querySelectorAll('.region');
+  const submitButton = document.getElementById('submit-button');
+  const statusMessage = document.getElementById('status-message');
+  const userCategorySelect = document.getElementById('user-category-select');
+  const inputAssets = document.getElementById('input-assets');
+  const inputWishedAssets = document.getElementById('input-wished-assets');
+  const inputBestWord = document.getElementById('input-best-word');
+  const loadingSpinner = document.getElementById('loading-spinner');
+ 
+  // --- UI LOGIC ---
+
+  // Checks if the submit button should be enabled
+  function checkSubmitButtonState() {
+    // Button is enabled ONLY if a non-empty category is selected
+    if (userCategorySelect.value !== "") {
+      submitButton.disabled = false;
+    } else {
+      submitButton.disabled = true;
+    }
+  }
+ 
+  // Map interaction logic (Keep your original 0 -> 1 -> 2 -> 0 toggle)
+  regions.forEach(region => {
+    region.addEventListener('click', function() {
+      const regionId = this.id;
+      let currentValue = regionValues[regionId];
+
+      // Toggle value (0 -> 1 -> 2 -> 0)
+      currentValue = (currentValue + 1) % 3;
+      regionValues[regionId] = currentValue;
+
+      // Update color and data attribute
+      this.className = 'region value-' + currentValue;
+      this.dataset.value = currentValue;
+    });
+  });
+
+  // Add listener for category change to check button state
+  userCategorySelect.addEventListener('change', checkSubmitButtonState);
+
+
+  // --- SUBMISSION LOGIC (REPLACED GOOGLE.SCRIPT.RUN) ---
+  submitButton.addEventListener('click', async function() {
+   
+    const selectedCategory = userCategorySelect.value;
+    if (selectedCategory === "") {
+      statusMessage.textContent = 'Please select your category before submitting.';
+      statusMessage.style.color = 'red';
+      submitButton.disabled = true;
+      return;
+    }
+
+    // COMPILE DATA
+    const dataToSend = {
+      category: userCategorySelect.value,
+      assets: inputAssets.value,
+      wishedAssets: inputWishedAssets.value,
+      bestWord: inputBestWord.value,
+      ...regionValues // This correctly adds all 95 region values (0, 1, or 2)
+    };
+
+    // UI state: Disable button and show loading
+    submitButton.disabled = true;
+    loadingSpinner.style.display = 'block';
+    statusMessage.textContent = 'Saving, Do NOT exit...';
+    statusMessage.style.color = 'blue';
+
+    try {
+      const response = await fetch(CLOUD_FUNCTION_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend)
+      });
+
+      // Check for HTTP errors (e.g., 400, 500 from the Cloud Function)
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Cloud Function Error (${response.status}): ${errorText}`);
+      }
+     
+      // Success
+      statusMessage.textContent = 'Data successfully saved!';
+      statusMessage.style.color = 'green';
+      resetForm();
+
+    } catch (error) {
+      statusMessage.textContent = 'Error: Submission failed. Check your browser console.';
+      statusMessage.style.color = 'red';
+      console.error('Submission failed:', error);
+
+    } finally {
+      // Always reset the UI after attempt
+      submitButton.disabled = false;
+      loadingSpinner.style.display = 'none';
+    }
+  });
+
+
+  // RENAMED FUNCTION
+  function resetForm() {
+    regions.forEach(region => {
+      const regionId = region.id;
+      // Use the regionValues map to reset the state
+      regionValues[regionId] = 0;
+      region.className = 'region value-0';
+      region.dataset.value = 0;
+    });
+    inputAssets.value = '';
+    inputWishedAssets.value = '';
+    inputBestWord.value = '';
+    userCategorySelect.value = '';
+    checkSubmitButtonState(); // Re-disable button
+    // Keep status message until user interacts
+  }
+
+  // Initial setup (Calls checkSubmitButtonState to disable the button)
+  checkSubmitButtonState();
+
+</script>
+</body>
+</html>
