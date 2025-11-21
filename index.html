@@ -1,0 +1,544 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2487.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000; min-height: 14.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #103cc0; -webkit-text-stroke: #103cc0}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.0px Arial; color: #757575; -webkit-text-stroke: #757575; background-color: #ffffff; min-height: 11.0px}
+    span.s1 {font-kerning: none}
+    span.s2 {font-kerning: none; color: #000000; -webkit-text-stroke: 0px #000000}
+    span.s3 {text-decoration: underline ; font-kerning: none; -webkit-text-stroke: 0px #103cc0}
+    span.s4 {text-decoration: underline ; font-kerning: none; color: #103cc0; -webkit-text-stroke: 0px #103cc0}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;base target="_top"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;title&gt;HVRHS Mapping Project&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1">&lt;style&gt;</span></p>
+<p class="p1"><span class="s1">  body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; }</span></p>
+<p class="p1"><span class="s1">  h1 { margin-bottom: 20px; }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  #map-container { position: relative; width: 1000px; height: 567px; }</span></p>
+<p class="p1"><span class="s1">  #map-image { width: 100%; height: 100%; display: block; }</span></p>
+<p class="p1"><span class="s1">  .region {</span></p>
+<p class="p1"><span class="s1">    position: absolute;</span></p>
+<p class="p1"><span class="s1">    cursor: pointer;</span></p>
+<p class="p1"><span class="s1">    border: 1px solid transparent;</span></p>
+<p class="p1"><span class="s1">    background-color: lightgray;</span></p>
+<p class="p1"><span class="s1">    opacity: 0.5;</span></p>
+<p class="p1"><span class="s1">    transition: background-color 0.2s, opacity 0.2s; /* Added transition for smoother coloring */</span></p>
+<p class="p1"><span class="s1">  }</span></p>
+<p class="p1"><span class="s1">  .value-0 { background-color: lightgray; }</span></p>
+<p class="p1"><span class="s1">  .value-1 { background-color: dodgerblue; } /* Use a slightly nicer blue */</span></p>
+<p class="p1"><span class="s1">  .value-2 { background-color: tomato; } /* Use a slightly nicer red/pink */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  /* --- Region Definitions (Your Original CSS) --- */</span></p>
+<p class="p1"><span class="s1">  #regionMH { top: 81px; left: 95px; width: 159px; height: 64px; }</span></p>
+<p class="p1"><span class="s1">  #regionAG { top: 81px; left: 280px; width: 49px; height: 64px; }</span></p>
+<p class="p1"><span class="s1">  #regionBookStore { top: 80px; left: 707px; width: 21px; height: 16px; }</span></p>
+<p class="p1"><span class="s1">  #regionBackBalcony { top: 81px; left: 729px; width: 20px; height: 15px; }</span></p>
+<p class="p1"><span class="s1">  #regionAthTrain { top: 80px; left: 750px; width: 20px; height: 16px; }</span></p>
+<p class="p1"><span class="s1">  #regionCafe { top: 97px; left: 707px; width: 63px; height: 60px; }</span></p>
+<p class="p1"><span class="s1">  #regionKitch { top: 122px; left: 771px; width: 81px; height: 51px; }</span></p>
+<p class="p1"><span class="s1">  #regionCust { top: 122px; left: 854px; width: 19px; height: 51px; }</span></p>
+<p class="p1"><span class="s1">  #regionKitchOff { top: 109px; left: 771px; width: 102px; height: 12px; }</span></p>
+<p class="p1"><span class="s1">  #regionGirlsLR { top: 95px; left: 876px; width: 112px; height: 15px; }</span></p>
+<p class="p1"><span class="s1">  #regionBoysLR { top: 124px; left: 895px; width: 77px; height: 22px; }</span></p>
+<p class="p1"><span class="s1">  #regionGym { top: 175px; left: 895px; width: 89px; height: 87px; }</span></p>
+<p class="p1"><span class="s1">  #regionFitness { top: 187px; left: 812px; width: 40px; height: 32px; }</span></p>
+<p class="p1"><span class="s1">  #regionRSSC { top: 263px; left: 791px; width: 82px; height: 45px; }</span></p>
+<p class="p1"><span class="s1">  #regionCounseling { top: 235px; left: 729px; width: 40px; height: 63px; }</span></p>
+<p class="p1"><span class="s1">  #regionCareer { top: 299px; left: 729px; width: 40px; height: 25px; }</span></p>
+<p class="p1"><span class="s1">  #regionAD { top: 299px; left: 686px; width: 21px; height: 25px; }</span></p>
+<p class="p1"><span class="s1">  #regionPrincipal { top: 299px; left: 663px; width: 21px; height: 25px; }</span></p>
+<p class="p1"><span class="s1">  #regionMainOff { top: 299px; left: 613px; width: 20px; height: 25px; }</span></p>
+<p class="p1"><span class="s1">  #regionAud { top: 187px; left: 634px; width: 28px; height: 87px; }</span></p>
+<p class="p1"><span class="s1">  #regionPupil { top: 247px; left: 663px; width: 44px; height: 27px; }</span></p>
+<p class="p1"><span class="s1">  #regionNurse { top: 187px; left: 663px; width: 44px; height: 19px; }</span></p>
+<p class="p1"><span class="s1">  #regionAPO { top: 247px; left: 611px; width: 22px; height: 27px; }</span></p>
+<p class="p1"><span class="s1">  #regionFacLounge { top: 187px; left: 589px; width: 44px; height: 19px; }</span></p>
+<p class="p1"><span class="s1">  #regionCourtL { top: 207px; left: 589px; width: 44px; height: 39px; }</span></p>
+<p class="p1"><span class="s1">  #regionCourtR { top: 207px; left: 663px; width: 44px; height: 39px; }</span></p>
+<p class="p1"><span class="s1">  #regionSenCourt { top: 227px; left: 415px; width: 105px; height: 33px; }</span></p>
+<p class="p1"><span class="s1">  #regionGreenHo { top: 346px; left: 12px; width: 56px; height: 47px; }</span></p>
+<p class="p1"><span class="s1">  #regionFrOval { top: 385px; left: 541px; width: 200px; height: 40px; }</span></p>
+<p class="p1"><span class="s1">  #regionMainEnt { top: 357px; left: 611px; width: 77px; height: 23px; }</span></p>
+<p class="p1"><span class="s1">  #regionLibrary { top: 341px; left: 359px; width: 135px; height: 27px; }</span></p>
+<p class="p1"><span class="s1">  #regionCopyRoom { top: 187px; left: 537px; width: 27px; height: 20px; }</span></p>
+<p class="p1"><span class="s1">  #regionAgEdOff { top: 326px; left: 124px; width: 26px; height: 43px; }</span></p>
+<p class="p1"><span class="s1">  #regionSciOff { top: 315px; left: 280px; width: 23px; height: 29px; }</span></p>
+<p class="p1"><span class="s1">  #regionITOff { top: 309px; left: 305px; width: 24px; height: 15px; }</span></p>
+<p class="p1"><span class="s1">  #regionLibOff { top: 346px; left: 330px; width: 24px; height: 23px; }</span></p>
+<p class="p1"><span class="s1">  #regionMathOff { top: 276px; left: 357px; width: 34px; height: 22px; }</span></p>
+<p class="p1"><span class="s1">  #regionLangOff { top: 463px; left: 650px; width: 12px; height: 41px; }</span></p>
+<p class="p1"><span class="s1">  #regionWorkRoomTop { top: 335px; left: 70px; width: 25px; height: 33px; }</span></p>
+<p class="p1"><span class="s1">  #regionWorkRoomBot { top: 370px; left: 70px; width: 25px; height: 33px; }</span></p>
+<p class="p1"><span class="s1">  #regionDownLocker { top: 159px; left: 707px; width: 63px; height: 14px; }</span></p>
+<p class="p1"><span class="s1">  #regionEngOff { top: 463px; left: 604px; width: 8px; height: 41px; }</span></p>
+<p class="p1"><span class="s1">  #regionBalcony { top: 463px; left: 589px; width: 14px; height: 41px; }</span></p>
+<p class="p1"><span class="s1">  #regionLavGym { top: 187px; left: 854px; width: 19px; height: 32px; }</span></p>
+<p class="p1"><span class="s1">  #regionLav2L { top: 505px; left: 517px; width: 19px; height: 14px; }</span></p>
+<p class="p1"><span class="s1">  #regionLav2R { top: 505px; left: 643px; width: 19px; height: 14px; }</span></p>
+<p class="p1"><span class="s1">  #regionLavTE { top: 187px; left: 424px; width: 20px; height: 20px; }</span></p>
+<p class="p1"><span class="s1">  #regionLavMath { top: 309px; left: 245px; width: 10px; height: 15px; }</span></p>
+<p class="p1"><span class="s1">  #regionLockers { top: 159px; left: 895px; width: 59px; height: 14px; }</span></p>
+<p class="p1"><span class="s1">  #region103 { top: 187px; left: 750px; width: 40px; height: 32px; }</span></p>
+<p class="p1"><span class="s1">  #region104 { top: 146px; left: 614px; width: 18px; height: 27px; }</span></p>
+<p class="p1"><span class="s1">  #region105 { top: 146px; left: 634px; width: 28px; height: 27px; }</span></p>
+<p class="p1"><span class="s1">  #region106 { top: 146px; left: 663px; width: 21px; height: 27px; }</span></p>
+<p class="p1"><span class="s1">  #region107 { top: 134px; left: 589px; width: 23px; height: 39px; }</span></p>
+<p class="p1"><span class="s1">  #region108 { top: 146px; left: 566px; width: 22px; height: 27px; }</span></p>
+<p class="p1"><span class="s1">  #region109 { left: 537px; width: 28px; top: 146px; height: 27px; }</span></p>
+<p class="p1"><span class="s1">  #region110 { left: 495px; width: 40px; top: 134px; height: 39px; }</span></p>
+<p class="p1"><span class="s1">  #region111 { left: 471px; width: 23px; top: 146px; height: 27px; }</span></p>
+<p class="p1"><span class="s1">  #region112 { left: 445px; width: 25px; top: 146px; height: 27px; }</span></p>
+<p class="p1"><span class="s1">  #region113 { left: 401px; width: 43px; top: 146px; height: 27px; }</span></p>
+<p class="p1"><span class="s1">  #region114 { left: 355px; width: 46px; top: 158px; height: 36px; }</span></p>
+<p class="p1"><span class="s1">  #region114A { left: 355px; width: 18px; top: 195px; height: 12px; }</span></p>
+<p class="p1"><span class="s1">  #region115 { left: 355px; width: 46px; top: 207px; height: 27px; }</span></p>
+<p class="p1"><span class="s1">  #region116A { left: 517px; width: 19px; top: 187px; height: 20px; }</span></p>
+<p class="p1"><span class="s1">  #region116B { left: 496px; width: 21px; top: 187px; height: 20px; }</span></p>
+<p class="p1"><span class="s1">  #region116C { left: 471px; width: 24px; top: 187px; height: 20px; }</span></p>
+<p class="p1"><span class="s1">  #region116D { left: 445px; width: 25px; top: 187px; height: 20px; }</span></p>
+<p class="p1"><span class="s1">  #region117 { left: 537px; width: 27px; top: 208px; height: 26px; }</span></p>
+<p class="p1"><span class="s1">  #region118 { left: 537px; width: 27px; top: 235px; height: 27px; }</span></p>
+<p class="p1"><span class="s1">  #region120 { left: 330px; width: 25px; top: 276px; height: 22px; }</span></p>
+<p class="p1"><span class="s1">  #region121 { left: 304px; width: 25px; top: 276px; height: 22px; }</span></p>
+<p class="p1"><span class="s1">  #region122 { left: 280px; width: 24px; top: 276px; height: 22px; }</span></p>
+<p class="p1"><span class="s1">  #region123 { left: 256px; width: 23px; top: 276px; height: 22px; }</span></p>
+<p class="p1"><span class="s1">  #region124 { left: 228px; width: 26px; top: 276px; height: 22px; }</span></p>
+<p class="p1"><span class="s1">  #region125 { left: 189px; width: 38px; top: 276px; height: 22px; }</span></p>
+<p class="p1"><span class="s1">  #region126 { left: 189px; width: 26px; top: 309px; height: 16px; }</span></p>
+<p class="p1"><span class="s1">  #region127 { left: 216px; width: 28px; top: 309px; height: 16px; }</span></p>
+<p class="p1"><span class="s1">  #region128 { left: 228px; width: 26px; top: 326px; height: 31px; }</span></p>
+<p class="p1"><span class="s1">  #region129 { left: 228px; width: 26px; top: 370px; height: 35px; }</span></p>
+<p class="p1"><span class="s1">  #region130 { left: 280px; width: 24px; top: 370px; height: 35px; }</span></p>
+<p class="p1"><span class="s1">  #region131 { left: 280px; width: 49px; top: 345px; height: 24px; }</span></p>
+<p class="p1"><span class="s1">  #region133 { left: 398px; width: 40px; top: 304px; height: 29px; }</span></p>
+<p class="p1"><span class="s1">  #region134 { left: 517px; width: 48px; top: 299px; height: 25px; }</span></p>
+<p class="p1"><span class="s1">  #region135 { left: 589px; width: 22px; top: 247px; height: 27px; }</span></p>
+<p class="p1"><span class="s1">  #region136 { left: 589px; width: 24px; top: 299px; height: 25px; }</span></p>
+<p class="p1"><span class="s1">  #region182 { left: 331px; width: 42px; top: 309px; height: 15px; }</span></p>
+<p class="p1"><span class="s1">  #region184 { left: 305px; width: 24px; top: 326px; height: 19px; }</span></p>
+<p class="p1"><span class="s1">  #region185 { left: 408px; width: 39px; top: 378px; height: 24px; }</span></p>
+<p class="p1"><span class="s1">  #region188 { left: 443px; width: 27px; top: 299px; height: 25px; }</span></p>
+<p class="p1"><span class="s1">  #region189 { left: 472px; width: 44px; top: 299px; height: 25px; }</span></p>
+<p class="p1"><span class="s1">  #region202 { left: 614px; width: 36px; top: 463px; height: 41px; }</span></p>
+<p class="p1"><span class="s1">  #region204 { left: 553px; width: 35px; top: 463px; height: 41px; }</span></p>
+<p class="p1"><span class="s1">  #region205 { left: 517px; width: 34px; top: 463px; height: 41px; }</span></p>
+<p class="p1"><span class="s1">  #region207 { left: 538px; width: 49px; top: 520px; height: 31px; }</span></p>
+<p class="p1"><span class="s1">  #region208 { left: 590px; width: 22px; top: 520px; height: 31px; }</span></p>
+<p class="p1"><span class="s1">  #region209 { left: 614px; width: 35px; top: 520px; height: 31px; }</span></p>
+<p class="p1"><span class="s1">  #region349 { left: 166px; width: 22px; top: 249px; height: 14px; }</span></p>
+<p class="p1"><span class="s1">  #region350 { left: 166px; width: 22px; top: 264px; height: 14px; }</span></p>
+<p class="p1"><span class="s1">  #region351 { left: 166px; width: 22px; top: 282px; height: 17px; }</span></p>
+<p class="p1"><span class="s1">  #region352 { left: 166px; width: 22px; top: 318px; height: 16px; }</span></p>
+<p class="p1"><span class="s1">  #region353 { left: 166px; width: 22px; top: 335px; height: 35px; }</span></p>
+<p class="p1"><span class="s1">  #region354 { left: 166px; width: 22px; top: 370px; height: 35px; }</span></p>
+<p class="p1"><span class="s1">  #region356 { left: 125px; width: 24px; top: 382px; height: 23px; }</span></p>
+<p class="p1"><span class="s1">  #region358 { left: 124px; width: 26px; top: 309px; height: 16px; }</span></p>
+<p class="p1"><span class="s1">  #region359 { left: 124px; width: 26px; top: 264px; height: 44px; }</span></p>
+<p class="p1"><span class="s1">  #region360 { left: 124px; width: 26px; top: 249px; height: 14px; }</span></p>
+<p class="p1"><span class="s1">  #region361 { left: 97px; width: 26px; top: 335px; height: 33px; }</span></p>
+<p class="p1"><span class="s1">  #region362 { left: 97px; width: 26px; top: 370px; height: 33px; }</span></p>
+<p class="p1"><span class="s1">  /* --- End Region Definitions --- */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  #instructions-box {</span></p>
+<p class="p1"><span class="s1">    background-color: #f0f0f0;</span></p>
+<p class="p1"><span class="s1">    padding: 15px;            </span></p>
+<p class="p1"><span class="s1">    margin-bottom: 20px;      </span></p>
+<p class="p1"><span class="s1">    border-radius: 5px;        </span></p>
+<p class="p1"><span class="s1">    width: 950px;              </span></p>
+<p class="p1"><span class="s1">    text-align: left;          </span></p>
+<p class="p1"><span class="s1">  }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  #instructions-box ul {</span></p>
+<p class="p1"><span class="s1">    list-style-type: disc;    </span></p>
+<p class="p1"><span class="s1">    margin: 0;                </span></p>
+<p class="p1"><span class="s1">    padding-left: 20px;        </span></p>
+<p class="p1"><span class="s1">  }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  #instructions-box li {</span></p>
+<p class="p1"><span class="s1">    margin-bottom: 5px;        </span></p>
+<p class="p1"><span class="s1">    line-height: 1.4;          </span></p>
+<p class="p1"><span class="s1">    text-align: left;</span></p>
+<p class="p1"><span class="s1">  }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  #user-input-section {</span></p>
+<p class="p1"><span class="s1">    margin-top: 20px;</span></p>
+<p class="p1"><span class="s1">    margin-bottom: 20px;</span></p>
+<p class="p1"><span class="s1">    display: flex;</span></p>
+<p class="p1"><span class="s1">    flex-direction: column;</span></p>
+<p class="p1"><span class="s1">    padding: 15px;</span></p>
+<p class="p1"><span class="s1">    border: 1px solid #eee;</span></p>
+<p class="p1"><span class="s1">    border-radius: 8px;</span></p>
+<p class="p1"><span class="s1">    background-color: #f9f9f9;</span></p>
+<p class="p1"><span class="s1">    width: 950px;</span></p>
+<p class="p1"><span class="s1">  }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  #user-input-section label {</span></p>
+<p class="p1"><span class="s1">    margin-bottom: 5px;</span></p>
+<p class="p1"><span class="s1">    font-weight: bold;</span></p>
+<p class="p1"><span class="s1">    color: #333;</span></p>
+<p class="p1"><span class="s1">  }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  #user-category-select,</span></p>
+<p class="p1"><span class="s1">  .text-input-field {</span></p>
+<p class="p1"><span class="s1">    width: 925px;</span></p>
+<p class="p1"><span class="s1">    padding: 8px;</span></p>
+<p class="p1"><span class="s1">    margin-bottom: 15px;</span></p>
+<p class="p1"><span class="s1">    border: 1px solid #ccc;</span></p>
+<p class="p1"><span class="s1">    border-radius: 4px;</span></p>
+<p class="p1"><span class="s1">    font-size: 1rem;</span></p>
+<p class="p1"><span class="s1">    font-family: sans-serif;</span></p>
+<p class="p1"><span class="s1">  }</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">  #submit-button {</span></p>
+<p class="p1"><span class="s1">    padding: 10px 20px;</span></p>
+<p class="p1"><span class="s1">    font-size: 16px;</span></p>
+<p class="p1"><span class="s1">    background-color: #4CAF50;</span></p>
+<p class="p1"><span class="s1">    color: white;</span></p>
+<p class="p1"><span class="s1">    border: none;</span></p>
+<p class="p1"><span class="s1">    border-radius: 5px;</span></p>
+<p class="p1"><span class="s1">    cursor: pointer;</span></p>
+<p class="p1"><span class="s1">    transition: background-color 0.3s, opacity 0.3s;</span></p>
+<p class="p1"><span class="s1">    display: flex; /* For alignment of text and spinner */</span></p>
+<p class="p1"><span class="s1">    align-items: center;</span></p>
+<p class="p1"><span class="s1">    justify-content: center;</span></p>
+<p class="p1"><span class="s1">  }</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">  #submit-button:disabled {</span></p>
+<p class="p1"><span class="s1">    background-color: #cccccc;</span></p>
+<p class="p1"><span class="s1">    cursor: not-allowed;</span></p>
+<p class="p1"><span class="s1">    opacity: 0.6;</span></p>
+<p class="p1"><span class="s1">  }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  #submit-button:not(:disabled):hover {</span></p>
+<p class="p1"><span class="s1">    background-color: #45a049;</span></p>
+<p class="p1"><span class="s1">  }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  #status-message { margin-top: 10px; color: green; font-weight: bold; }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  /* Simple loading spinner CSS (adapted from previous version) */</span></p>
+<p class="p1"><span class="s1">  #loading-spinner {</span></p>
+<p class="p1"><span class="s1">      border: 4px solid rgba(255, 255, 255, 0.4);</span></p>
+<p class="p1"><span class="s1">      border-left-color: white;</span></p>
+<p class="p1"><span class="s1">      border-radius: 50%;</span></p>
+<p class="p1"><span class="s1">      width: 16px;</span></p>
+<p class="p1"><span class="s1">      height: 16px;</span></p>
+<p class="p1"><span class="s1">      animation: spin 1s linear infinite;</span></p>
+<p class="p1"><span class="s1">      margin-left: 8px;</span></p>
+<p class="p1"><span class="s1">      display: none; /* Hidden by default */</span></p>
+<p class="p1"><span class="s1">  }</span></p>
+<p class="p1"><span class="s1">  @keyframes spin {</span></p>
+<p class="p1"><span class="s1">      to { transform: rotate(360deg); }</span></p>
+<p class="p1"><span class="s1">  }</span></p>
+<p class="p1"><span class="s1">&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  &lt;h1&gt;HVRHS Mapping Project&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1">  &lt;div id="instructions-box"&gt;</span></p>
+<p class="p1"><span class="s1">  &lt;ul&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;li&gt;Click on each room or area of this map to color the areas you feel supported, safe, welcome, seen or positive &lt;span style="color: dodgerblue;"&gt;BLUE&lt;/span&gt;&lt;/li&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;li&gt;Click on each room or area of this map to color the areas you feel unsupported, unsafe, unwelcome, unseen or negative &lt;span style="color: tomato;"&gt;RED&lt;/span&gt;&lt;/li&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;li&gt;Areas for which you do not feel strongly either way should be left GRAY&lt;/li&gt;</span></p>
+<p class="p1"><span class="s1">  &lt;/ul&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;br&gt;</span></p>
+<p class="p1"><span class="s1">  &lt;div id="map-container"&gt;</span></p>
+<p class="p3"><span class="s2">    &lt;img id="map-image" src="<a href="https://i.imgur.com/hAH3CGy.png"><span class="s3">https://i.imgur.com/hAH3CGy.png</span></a>" onerror="this.onerror=null; this.src='<a href="https://placehold.co/1000x567/cccccc/333333?text=HVRHS+Map+Image+Placeholder%27"><span class="s3">https://placehold.co/1000x567/cccccc/333333?text=HVRHS+Map+Image+Placeholder'</span></a>;"&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;!-- All 95 Region DIVs below (as provided by user) --&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionMH" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionAG" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionBookStore" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionBackBalcony" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionAthTrain" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionCafe" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionKitch" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionCust" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionKitchOff" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionGirlsLR" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionBoysLR" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionGym" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionFitness" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionRSSC" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionCounseling" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionCareer" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionAD" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionPrincipal" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionMainOff" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionAud" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionPupil" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionNurse" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionAPO" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionFacLounge" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionCourtL" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionCourtR" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionSenCourt" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionGreenHo" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionFrOval" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionMainEnt" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionLibrary" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionCopyRoom" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionAgEdOff" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionSciOff" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionITOff" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionLibOff" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionMathOff" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionLangOff" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionWorkRoomTop" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionWorkRoomBot" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionDownLocker" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionEngOff" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionBalcony" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionLavGym" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionLav2L" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionLav2R" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionLavTE" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionLavMath" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="regionLockers" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region103" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region104" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region105" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region106" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region107" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region108" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region109" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region110" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region111" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region112" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region113" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region114" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region114A" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region115" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region116A" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region116B" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region116C" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region116D" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region117" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region118" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region120" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region121" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region122" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region123" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region124" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region125" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region126" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region127" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region128" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region129" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region130" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region131" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region133" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region134" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region135" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region136" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region182" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region184" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region185" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region188" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region189" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region202" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region204" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region205" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region207" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region208" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region209" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region349" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region350" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region351" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region352" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region353" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region354" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region356" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region358" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region359" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region360" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region361" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="region362" class="region value-0" data-value="0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">   </span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  &lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  &lt;div id="user-input-section"&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">    &lt;label for="user-category-select"&gt;1. Select your class year/role:&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;select id="user-category-select"&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;option value=""&gt;-- Please select --&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;option value="Faculty"&gt;Faculty&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;option value="9th Grade"&gt;9th Grade&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;option value="10th Grade"&gt;10th Grade&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;option value="11th Grade"&gt;11th Grade&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;option value="12th Grade"&gt;12th Grade&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;/select&gt;</span></p>
+<p class="p1"><span class="s1">   </span></p>
+<p class="p1"><span class="s1">    &lt;label for="input-assets"&gt;2. Which areas of HVRHS do you consider ASSETS? (Assets can be places of particular personal importance, spaces that you are proud of, areas where you spend the most time, etc.)&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;textarea id="input-assets" class="text-input-field" rows="2" placeholder="List assets here..."&gt;&lt;/textarea&gt;</span></p>
+<p class="p1"><span class="s1">   </span></p>
+<p class="p1"><span class="s1">    &lt;label for="input-wished-assets"&gt;3. List any ASSET you wished existed at HVRHS? (Examples include a new physical space, a resource HVRHS provided, a faculty/staff position, etc.)&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;textarea id="input-wished-assets" class="text-input-field" rows="2" placeholder="List desired assets here..."&gt;&lt;/textarea&gt;</span></p>
+<p class="p1"><span class="s1">   </span></p>
+<p class="p1"><span class="s1">    &lt;label for="input-best-word"&gt;4. Write ONE WORD that you think BEST describes HVRHS?&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;input type="text" id="input-best-word" class="text-input-field" placeholder="One word only..."&gt;</span></p>
+<p class="p1"><span class="s1">   </span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">  &lt;button id="submit-button" disabled&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;span&gt;Submit&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div id="loading-spinner"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">  &lt;/button&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  &lt;div id="status-message"&gt;&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;script&gt;</span></p>
+<p class="p1"><span class="s1">  // --- CONFIGURATION ---</span></p>
+<p class="p1"><span class="s1">  // *** Your Cloud Function URL ***</span></p>
+<p class="p3"><span class="s2">  const CLOUD_FUNCTION_URL = '<a href="https://savedata-295461988586.us-central1.run.app/"><span class="s3">https://savedata-295461988586.us-central1.run.app</span></a>';</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">  // All 95 region IDs defined in your original code</span></p>
+<p class="p1"><span class="s1">  const REGION_IDS = [</span></p>
+<p class="p1"><span class="s1">    'regionMH', 'regionAG', 'regionBookStore', 'regionBackBalcony', 'regionAthTrain', 'regionCafe', 'regionKitch', 'regionCust', 'regionKitchOff', 'regionGirlsLR', 'regionBoysLR', 'regionGym', 'regionFitness', 'regionRSSC', 'regionCounseling', 'regionCareer', 'regionAD', 'regionPrincipal', 'regionMainOff', 'regionAud', 'regionPupil', 'regionNurse', 'regionAPO', 'regionFacLounge', 'regionCourtL', 'regionCourtR', 'regionSenCourt', 'regionGreenHo', 'regionFrOval', 'regionMainEnt', 'regionLibrary', 'regionCopyRoom', 'regionAgEdOff', 'regionSciOff', 'regionITOff', 'regionLibOff', 'regionMathOff', 'regionLangOff', 'regionWorkRoomTop', 'regionWorkRoomBot', 'regionDownLocker', 'regionEngOff', 'regionBalcony', 'regionLavGym', 'regionLav2L', 'regionLav2R', 'regionLavTE', 'regionLavMath', 'regionLockers', 'region103', 'region104', 'region105', 'region106', 'region107', 'region108', 'region109', 'region110', 'region111', 'region112', 'region113', 'region114', 'region114A', 'region115', 'region116A', 'region116B', 'region116C', 'region116D', 'region117', 'region118', 'region120', 'region121', 'region122', 'region123', 'region124', 'region125', 'region126', 'region127', 'region128', 'region129', 'region130', 'region131', 'region133', 'region134', 'region135', 'region136', 'region182', 'region184', 'region185', 'region188', 'region189', 'region202', 'region204', 'region205', 'region207', 'region208', 'region209', 'region349', 'region350', 'region351', 'region352', 'region353', 'region354', 'region356', 'region358', 'region359', 'region360', 'region361', 'region362'</span></p>
+<p class="p1"><span class="s1">  ];</span></p>
+<p class="p1"><span class="s1">  // --- END CONFIGURATION ---</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  // Map to store current values for each region (Keep your original map definition)</span></p>
+<p class="p1"><span class="s1">  const regionValues = REGION_IDS.reduce((acc, id) =&gt; {</span></p>
+<p class="p1"><span class="s1">      acc[id] = 0;</span></p>
+<p class="p1"><span class="s1">      return acc;</span></p>
+<p class="p1"><span class="s1">  }, {});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  const regions = document.querySelectorAll('.region');</span></p>
+<p class="p1"><span class="s1">  const submitButton = document.getElementById('submit-button');</span></p>
+<p class="p1"><span class="s1">  const statusMessage = document.getElementById('status-message');</span></p>
+<p class="p1"><span class="s1">  const userCategorySelect = document.getElementById('user-category-select');</span></p>
+<p class="p1"><span class="s1">  const inputAssets = document.getElementById('input-assets');</span></p>
+<p class="p1"><span class="s1">  const inputWishedAssets = document.getElementById('input-wished-assets');</span></p>
+<p class="p1"><span class="s1">  const inputBestWord = document.getElementById('input-best-word');</span></p>
+<p class="p1"><span class="s1">  const loadingSpinner = document.getElementById('loading-spinner');</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">  // --- UI LOGIC ---</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  // Checks if the submit button should be enabled</span></p>
+<p class="p1"><span class="s1">  function checkSubmitButtonState() {</span></p>
+<p class="p1"><span class="s1">    // Button is enabled ONLY if a non-empty category is selected</span></p>
+<p class="p1"><span class="s1">    if (userCategorySelect.value !== "") {</span></p>
+<p class="p1"><span class="s1">      submitButton.disabled = false;</span></p>
+<p class="p1"><span class="s1">    } else {</span></p>
+<p class="p1"><span class="s1">      submitButton.disabled = true;</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">  }</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">  // Map interaction logic (Keep your original 0 -&gt; 1 -&gt; 2 -&gt; 0 toggle)</span></p>
+<p class="p1"><span class="s1">  regions.forEach(region =&gt; {</span></p>
+<p class="p1"><span class="s1">    region.addEventListener('click', function() {</span></p>
+<p class="p1"><span class="s1">      const regionId = <a href="http://this.id/"><span class="s4">this.id</span></a>;</span></p>
+<p class="p1"><span class="s1">      let currentValue = regionValues[regionId];</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">      // Toggle value (0 -&gt; 1 -&gt; 2 -&gt; 0)</span></p>
+<p class="p1"><span class="s1">      currentValue = (currentValue + 1) % 3;</span></p>
+<p class="p1"><span class="s1">      regionValues[regionId] = currentValue;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">      // Update color and data attribute</span></p>
+<p class="p1"><span class="s1">      this.className = 'region value-' + currentValue;</span></p>
+<p class="p1"><span class="s1">      this.dataset.value = currentValue;</span></p>
+<p class="p1"><span class="s1">    });</span></p>
+<p class="p1"><span class="s1">  });</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  // Add listener for category change to check button state</span></p>
+<p class="p1"><span class="s1">  userCategorySelect.addEventListener('change', checkSubmitButtonState);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  // --- SUBMISSION LOGIC (REPLACED GOOGLE.SCRIPT.RUN) ---</span></p>
+<p class="p1"><span class="s1">  submitButton.addEventListener('click', async function() {</span></p>
+<p class="p1"><span class="s1">   </span></p>
+<p class="p1"><span class="s1">    const selectedCategory = userCategorySelect.value;</span></p>
+<p class="p1"><span class="s1">    if (selectedCategory === "") {</span></p>
+<p class="p1"><span class="s1">      statusMessage.textContent = 'Please select your category before submitting.';</span></p>
+<p class="p1"><span class="s1">      statusMessage.style.color = 'red';</span></p>
+<p class="p1"><span class="s1">      submitButton.disabled = true;</span></p>
+<p class="p1"><span class="s1">      return;</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">    // COMPILE DATA</span></p>
+<p class="p1"><span class="s1">    const dataToSend = {</span></p>
+<p class="p1"><span class="s1">      category: userCategorySelect.value,</span></p>
+<p class="p1"><span class="s1">      assets: inputAssets.value,</span></p>
+<p class="p1"><span class="s1">      wishedAssets: inputWishedAssets.value,</span></p>
+<p class="p1"><span class="s1">      bestWord: inputBestWord.value,</span></p>
+<p class="p1"><span class="s1">      ...regionValues // This correctly adds all 95 region values (0, 1, or 2)</span></p>
+<p class="p1"><span class="s1">    };</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">    // UI state: Disable button and show loading</span></p>
+<p class="p1"><span class="s1">    submitButton.disabled = true;</span></p>
+<p class="p1"><span class="s1">    loadingSpinner.style.display = 'block';</span></p>
+<p class="p1"><span class="s1">    statusMessage.textContent = 'Saving, Do NOT exit...';</span></p>
+<p class="p1"><span class="s1">    statusMessage.style.color = 'blue';</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">    try {</span></p>
+<p class="p1"><span class="s1">      const response = await fetch(CLOUD_FUNCTION_URL, {</span></p>
+<p class="p1"><span class="s1">        method: 'POST',</span></p>
+<p class="p1"><span class="s1">        headers: {</span></p>
+<p class="p1"><span class="s1">          'Content-Type': 'application/json',</span></p>
+<p class="p1"><span class="s1">        },</span></p>
+<p class="p1"><span class="s1">        body: JSON.stringify(dataToSend)</span></p>
+<p class="p1"><span class="s1">      });</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">      // Check for HTTP errors (e.g., 400, 500 from the Cloud Function)</span></p>
+<p class="p1"><span class="s1">      if (!response.ok) {</span></p>
+<p class="p1"><span class="s1">        const errorText = await response.text();</span></p>
+<p class="p1"><span class="s1">        throw new Error(`Cloud Function Error (${response.status}): ${errorText}`);</span></p>
+<p class="p1"><span class="s1">      }</span></p>
+<p class="p1"><span class="s1">     </span></p>
+<p class="p1"><span class="s1">      // Success</span></p>
+<p class="p1"><span class="s1">      statusMessage.textContent = 'Data successfully saved!';</span></p>
+<p class="p1"><span class="s1">      statusMessage.style.color = 'green';</span></p>
+<p class="p1"><span class="s1">      resetForm();</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">    } catch (error) {</span></p>
+<p class="p1"><span class="s1">      statusMessage.textContent = 'Error: Submission failed. Check your browser console.';</span></p>
+<p class="p1"><span class="s1">      statusMessage.style.color = 'red';</span></p>
+<p class="p1"><span class="s1">      console.error('Submission failed:', error);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">    } finally {</span></p>
+<p class="p1"><span class="s1">      // Always reset the UI after attempt</span></p>
+<p class="p1"><span class="s1">      submitButton.disabled = false;</span></p>
+<p class="p1"><span class="s1">      loadingSpinner.style.display = 'none';</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">  });</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  // RENAMED FUNCTION</span></p>
+<p class="p1"><span class="s1">  function resetForm() {</span></p>
+<p class="p1"><span class="s1">    regions.forEach(region =&gt; {</span></p>
+<p class="p1"><span class="s1">      const regionId = <a href="http://region.id/"><span class="s4">region.id</span></a>;</span></p>
+<p class="p1"><span class="s1">      // Use the regionValues map to reset the state</span></p>
+<p class="p1"><span class="s1">      regionValues[regionId] = 0;</span></p>
+<p class="p1"><span class="s1">      region.className = 'region value-0';</span></p>
+<p class="p1"><span class="s1">      region.dataset.value = 0;</span></p>
+<p class="p1"><span class="s1">    });</span></p>
+<p class="p1"><span class="s1">    inputAssets.value = '';</span></p>
+<p class="p1"><span class="s1">    inputWishedAssets.value = '';</span></p>
+<p class="p1"><span class="s1">    inputBestWord.value = '';</span></p>
+<p class="p1"><span class="s1">    userCategorySelect.value = '';</span></p>
+<p class="p1"><span class="s1">    checkSubmitButtonState(); // Re-disable button</span></p>
+<p class="p1"><span class="s1">    // Keep status message until user interacts</span></p>
+<p class="p1"><span class="s1">  }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  // Initial setup (Calls checkSubmitButtonState to disable the button)</span></p>
+<p class="p1"><span class="s1">  checkSubmitButtonState();</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+</body>
+</html>
