@@ -243,6 +243,13 @@
     opacity: 0.6;
   }
 
+  /* Style for when submission is blocked */
+  #submit-button.already-submitted {
+    background-color: #28a745 !important;
+    color: white !important;
+    cursor: not-allowed;
+  }
+
   #submit-button:not(:disabled):hover {
     background-color: #45a049;
   }
@@ -454,11 +461,27 @@
   const inputWishedAssets = document.getElementById('input-wished-assets');
   const inputBestWord = document.getElementById('input-best-word');
   const loadingSpinner = document.getElementById('loading-spinner');
+
+  let hasSubmitted = localStorage.getItem('hvrhs_submitted') === 'true';
  
   // --- UI LOGIC ---
 
   // Checks if the submit button should be enabled
   function checkSubmitButtonState() {
+    // Force "Received" state if they already submitted
+    if (hasSubmitted) {
+      submitButton.disabled = true;
+      submitButton.textContent = "Submission Received";
+      submitButton.classList.add('already-submitted');
+      statusMessage.textContent = "You have already shared your feedback. Thank you!";
+      statusMessage.style.color = "blue";
+      
+      // Disable inputs so they can't type further
+      [userCategorySelect, inputAssets, inputWishedAssets, inputBestWord].forEach(el => el.disabled = true);
+      return;
+    }
+    
+    
     // Button is enabled ONLY if a non-empty category is selected
     if (userCategorySelect.value !== "") {
       submitButton.disabled = false;
@@ -531,7 +554,13 @@
       // Success
       statusMessage.textContent = 'Data successfully saved!';
       statusMessage.style.color = 'green';
+      // SAVE FLAG TO LOCAL STORAGE
+      localStorage.setItem('hvrhs_submitted', 'true');
+      hasSubmitted = true; 
+      
       resetForm();
+      checkSubmitButtonState(); // Call this to lock the UI immediately
+
 
     } catch (error) {
       statusMessage.textContent = 'Error: Submission failed. Check your browser console.';
